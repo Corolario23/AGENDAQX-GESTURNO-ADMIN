@@ -19,6 +19,10 @@ class CirujanosTurno(db.Model):
     def __repr__(self):
         return f'<Turno {self.fecha} {self.nombre_turno}>'
 
+# Crear las tablas al iniciar la aplicación
+with app.app_context():
+    db.create_all()
+
 # Diccionario de colores para los turnos - Con opacidad al 70%
 COLORES_TURNOS = {
     "Turno miércoles": "#4EBFBFB3",  # Turquesa (color principal) con opacidad
