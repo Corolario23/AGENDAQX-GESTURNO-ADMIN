@@ -9,6 +9,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:/
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+with app.app_context():
+    db.create_all()
+
 # Modelo para la base de datos
 class CirujanosTurno(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -481,6 +484,4 @@ def show_calendar():
 
 if __name__ == '__main__':
     inicializar_db()
-    with app.app_context():
-        db.create_all()
     app.run(debug=True, port=8081)
