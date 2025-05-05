@@ -374,7 +374,7 @@ HTML_TEMPLATE = """
         {% for año in [2025, 2026] %}
         <div class="year-title">Calendario {{ año }}</div>
         {% for mes in range(12) %}
-        <div class="mes">
+        <div class="mes" id="mes-{{ año }}-{{ mes+1 }}">
             <h2>{{ nombres_meses[mes] }}</h2>
             <div class="dias-container">
                 {% for dia in ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"] %}
@@ -448,6 +448,17 @@ HTML_TEMPLATE = """
         function cerrarModal() { modal.style.display = "none"; }
         span.onclick = cerrarModal;
         window.onclick = function(event) { if (event.target == modal) { cerrarModal(); } }
+        window.onload = function() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = today.getMonth() + 1; // getMonth() es 0-indexado
+            // Busca el mes actual en el año actual (si está en el rango mostrado)
+            const mesActual = document.getElementById(`mes-${year}-${month}`);
+            if (mesActual) {
+                mesActual.scrollIntoView({ behavior: "smooth", block: "start" });
+                mesActual.style.boxShadow = "0 0 20px 5px #4EBFBF";
+            }
+        };
     </script>
 </body>
 </html>
